@@ -1,0 +1,23 @@
+.button {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0;
+  justify-content: flex-start;
+  border-radius: 4px;
+}
+
+.item {
+  border: 1px solid var(--tw-gray-300);
+}
+
+.itemContent {
+  padding: 12px 0;
+  border-top: 2px solid var(--tw-gray-200);
+  margin: 0 24px;
+}

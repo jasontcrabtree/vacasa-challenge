@@ -1,0 +1,38 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--tw-gray-300);
+  border-radius: 4px;
+  width: 100%;
+  padding: 16px;
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.logo {
+  border-radius: 100%;
+}
+
+.supportWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
