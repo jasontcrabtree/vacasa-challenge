@@ -11,15 +11,20 @@ export default function Home({
   return (
     <main>
       <Header>Repositories</Header>
-      {/* <RepositoryList items={data} /> */}
+      <RepositoryList items={data} />
     </main>
   );
 }
 
 export const getServerSideProps = async () => {
-  const repositoryData = await fetch('/api/repositories')
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  const repositoryData = await fetch(`${baseUrl}/api/repositories`)
     .then((res) => res.json())
     .then((data) => data);
+
+  console.log('repositoryData', repositoryData)
 
   return {
     props: {
