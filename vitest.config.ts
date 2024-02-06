@@ -12,7 +12,9 @@ export default defineConfig({
         //   We exclude standard NextJS core pages as they aren't running any custom logic
         'src/pages/_app.tsx',
         'src/pages/_document.tsx',
+        'src/types/*',
       ],
     },
+    setupFiles: ['./vitest-setup.ts'],
   },
 });
