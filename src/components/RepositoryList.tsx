@@ -1,13 +1,13 @@
+import { RepositoryItemType } from "@/types/types";
 import RepositoryCard from "./RepositoryCard";
 
-// @ts-expect-error
-const RepositoryList = ({ items }) => {
+const RepositoryList = ({ items }: { items: Array<RepositoryItemType> }) => {
     return (
         <ul>
-            {/* @ts-expect-error */}
-            {items.map((item, index) => {
+
+            {items.map((item: RepositoryItemType) => {
                 return (
-                    <RepositoryCard key={item.id} />
+                    <RepositoryCard key={item.id} title={item.name} description={item.description} subtitle={item.full_name} link={item.html_url} />
                 )
             })}
         </ul>

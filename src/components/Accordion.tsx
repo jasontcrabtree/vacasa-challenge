@@ -1,8 +1,8 @@
+import { AccordionItemType } from "@/types/types";
 import { useState } from "react";
 
-// @ts-expect-error
-const Accordion = ({ accordionContent }) => {
-    const [open, setOpen] = useState(false);
+const Accordion = ({ accordionContent }: { accordionContent: Array<AccordionItemType> }) => {
+    const [openId, setOpenId] = useState("");
 
     if (!accordionContent) {
         return null
@@ -10,22 +10,23 @@ const Accordion = ({ accordionContent }) => {
 
     return (
         <div>
-            {/* @ts-expect-error */}
-            {accordionContent.map((accordionItem) => {
+            {accordionContent.map((accordionItem: AccordionItemType) => {
                 return (
                     <div key={accordionItem.id}>
                         <button
-                            onClick={() => setOpen(!open)}
-                            aria-expanded={open}
-                            aria-controls={accordionItem.id}
                             id={accordionItem.id}
+                            aria-controls={accordionItem.id}
+                            onClick={() => setOpenId(accordionItem.id)}
+                            aria-expanded={openId === accordionItem.id}
                             role="button"
                         >
                             {accordionItem.title}
                         </button>
-                        <div id={accordionItem.id}>
-                            {accordionItem.content}
-                        </div>
+                        {openId === accordionItem.id && (
+                            <div id={accordionItem.id}>
+                                {accordionItem.content}
+                            </div>
+                        )}
                     </div>
                 )
             })}

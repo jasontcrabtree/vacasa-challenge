@@ -12,7 +12,9 @@ export default defineConfig({
         //   We exclude standard NextJS core pages as they aren't running any custom logic
         'src/pages/_app.tsx',
         'src/pages/_document.tsx',
-        'src/types/*',
+        'src/types/*', // Types
+
+        'src/**/repositories.ts', // data fetching/display is tested via MSW/the actual content rendering, testing the api would require a comprehensive setup
       ],
     },
     setupFiles: ['./vitest-setup.ts'],

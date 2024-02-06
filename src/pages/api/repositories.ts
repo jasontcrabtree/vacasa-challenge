@@ -1,11 +1,8 @@
+import { ApiResType } from '@/types/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data =
-  | {
-      total_count: number;
-      incomplete_results: boolean;
-      items: Array<any>; // any due to time constraints
-    }
+  | ApiResType
   | {
       message: string;
     };
@@ -16,7 +13,8 @@ export default async function handler(
 ) {
   const searchTerm = req.query.search;
 
-  const url = `https://api.github.com/search/repositories?q=org:${searchTerm}&sort=stars&order=desc`;
+  // Default to fetching 16
+  const url = `https://api.github.com/search/repositories?q=org:${searchTerm}&sort=stars&order=desc&per_page=16`;
 
   const options = {
     method: 'GET',
@@ -30,8 +28,6 @@ export default async function handler(
 
   if (data.ok) {
     const json = await data.json();
-
-    console.log(json);
     res.status(200).json(json);
   } else {
     res.status(500).json({ message: 'Internal Server Error' });
