@@ -1,11 +1,29 @@
-import Head from "next/head";
-import Image from "next/image";
+import { Header } from "@/components/Header";
+import RepositoryList from "@/components/RepositoryList";
+import { InferGetServerSidePropsType } from "next";
 
+export default function Home({
+  data
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
-export default function Home() {
+  console.log('repositoryData', data);
+
   return (
     <main>
-      <h1>Hello World</h1>
+      <Header>Repositories</Header>
+      {/* <RepositoryList items={data} /> */}
     </main>
   );
+}
+
+export const getServerSideProps = async () => {
+  const repositoryData = await fetch('/api/repositories')
+    .then((res) => res.json())
+    .then((data) => data);
+
+  return {
+    props: {
+      data: repositoryData
+    }
+  }
 }
