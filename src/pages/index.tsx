@@ -14,7 +14,7 @@ export default function Home({
 }
 
 export const getServerSideProps = async ({ query }: { query: { search: string } }) => {
-  const repositoryApiRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/repositories?search=${query.search || 'vacasa'}`);
+  const repositoryApiRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/repositories?search=${query.search || "vacasa"}`);
 
   if (!repositoryApiRes.ok) {
     throw new Error('Failed to fetch repositories');
