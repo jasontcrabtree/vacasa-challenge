@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// @ts-expect-error
 const Accordion = ({ accordionContent }) => {
     const [open, setOpen] = useState(false);
 
@@ -9,6 +10,7 @@ const Accordion = ({ accordionContent }) => {
 
     return (
         <div>
+            {/* @ts-expect-error */}
             {accordionContent.map((accordionItem) => {
                 return (
                     <div key={accordionItem.id}>
