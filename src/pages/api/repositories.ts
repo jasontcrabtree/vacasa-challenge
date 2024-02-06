@@ -26,8 +26,6 @@ export default async function handler(
 
   const data = await fetch(url, options);
 
-  console.log('data', data);
-
   if (data.ok) {
     const json = await data.json();
     res.status(200).json(json);

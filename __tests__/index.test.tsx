@@ -1,6 +1,6 @@
-import { afterEach, expect, test, vi } from 'vitest'
+import { afterEach, expect, test } from 'vitest'
 import { cleanup, render, screen, waitFor } from '@testing-library/react'
-import IndexPage, { getServerSideProps } from '../src/pages/index'
+import IndexPage from '../src/pages/index'
 import RepositoryCard from '@/components/RepositoryCard';
 
 afterEach(() => {
@@ -28,14 +28,12 @@ export const mockRepositoryData = {
     ]
 }
 
-// Index page has a heading
 test('indexpage renders h1', () => {
     render(<IndexPage data={mockRepositoryData} />)
 
     expect(screen.getByRole('heading', { level: 1 }))
 })
 
-// Data is mocked to test UI display
 test('correct number of cards render with each card containing correct values', () => {
     render(<IndexPage data={mockRepositoryData} />)
 
@@ -47,7 +45,6 @@ test('correct number of cards render with each card containing correct values', 
     expect(screen.queryByText(mockRepositoryData.items[0].description)).toBeDefined();
 })
 
-// Card returns null if title or link are missing
 test('card returns null if title or link are missing', () => {
     render(<RepositoryCard
         title={''}

@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import styles from '@/styles/header.module.css'
 
 export const Header = ({
     children,
