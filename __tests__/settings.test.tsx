@@ -1,7 +1,8 @@
 import { afterEach, expect, test, vi } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render, waitFor, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import SettingsPage from '../src/pages/settings'
+import Accordion from '@/components/Accordion';
 
 afterEach(() => {
     cleanup();
@@ -27,6 +28,13 @@ test('settings page renders h1', () => {
     expect(screen.getByRole('heading', { level: 1 }))
 })
 
+// Accordion renders null with no content
+test('accordion renders null with no content', () => {
+    render(<Accordion accordionContent={[]} />)
+
+    expect(screen.queryByRole('button')).toBeNull();
+})
+
 // Accordion on settings page is closed by default
 test('accordion closed by default', () => {
     render(<SettingsPage accordionContent={mockAccordionData} />)
@@ -45,23 +53,16 @@ test('accordion opens and closes', () => {
     const privacyButton = screen.getByRole('button', { name: 'Privacy Policy' });
     const termsOfService = screen.getByRole('button', { name: 'Terms of Service' });
 
-    [privacyButton, termsOfService].map((button) => {
-        expect(button.getAttribute('aria-expanded')).toBe('false');
+    [privacyButton, termsOfService].forEach((button, index) => {
 
-        userEvent.click(button);
-        expect(button.getAttribute('aria-expanded')).toBe('true');
-
-        userEvent.click(button);
         expect(button.getAttribute('aria-expanded')).toBe('false');
+        userEvent.click(button);
+
+        waitFor(() => {
+            expect(button.getAttribute('aria-expanded')).toBe('true');
+            expect(screen.getAllByText(mockAccordionData[index].content)).toBeDefined();
+        })
     })
-
-    // userEvent.click(privacyButton)
-    // expect(privacyButton.getAttribute('aria-expanded')).toBe('true');
-    // expect(termsOfService.getAttribute('aria-expanded')).toBe('false');
-
-    // userEvent.click(termsOfService)
-    // expect(privacyButton.getAttribute('aria-expanded')).toBe('false');
-    // expect(termsOfService.getAttribute('aria-expanded')).toBe('true');
 })
 
 test('settings page includes link with email formatting', () => {

@@ -5,30 +5,24 @@ import { InferGetServerSidePropsType } from "next";
 export default function Home({
   data
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log('CLIENT SIDE DATA', data);
-
   return (
     <main>
       <Header>Repositories</Header>
-      {/* <RepositoryList items={data} /> */}
+      <RepositoryList items={data.items} />
     </main>
   );
 }
 
 export const getServerSideProps = async ({ query }: { query: { search: string } }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  const repositoryApiRes = await fetch(`${baseUrl}/api/repositories?search=${query.search || 'vacasa'}`);
+  const repositoryApiRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/repositories?search=${query.search || 'vacasa'}`);
 
   if (!repositoryApiRes.ok) {
     throw new Error('Failed to fetch repositories');
   }
 
-  const repositoryData = await repositoryApiRes.json();
-
   return {
     props: {
-      data: repositoryData
+      data: await repositoryApiRes.json()
     }
   }
 }
