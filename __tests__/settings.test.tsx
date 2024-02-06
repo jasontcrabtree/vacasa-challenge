@@ -21,21 +21,18 @@ export const mockAccordionData = [
     }
 ]
 
-// Settings page has a heading
 test('settings page renders h1', () => {
     render(<SettingsPage accordionContent={mockAccordionData} />)
 
     expect(screen.getByRole('heading', { level: 1 }))
 })
 
-// Accordion renders null with no content
 test('accordion renders null with no content', () => {
     render(<Accordion accordionContent={[]} />)
 
     expect(screen.queryByRole('button')).toBeNull();
 })
 
-// Accordion on settings page is closed by default
 test('accordion closed by default', () => {
     render(<SettingsPage accordionContent={mockAccordionData} />)
 
@@ -46,7 +43,6 @@ test('accordion closed by default', () => {
     })
 })
 
-// Clicking accordion opens and closed different FAQ questions
 test('accordion opens and closes', () => {
     render(<SettingsPage accordionContent={mockAccordionData} />)
 
