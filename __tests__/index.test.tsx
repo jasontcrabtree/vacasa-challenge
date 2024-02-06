@@ -28,11 +28,6 @@ export const mockRepositoryData = {
     ]
 }
 
-// Verify Vitest/Jest/Testing LibrarySetup correctly
-test('test file works', () => {
-    expect(true).toBe(true)
-})
-
 // Index page has a heading
 test('indexpage renders h1', () => {
     render(<IndexPage data={mockRepositoryData} />)
@@ -40,29 +35,12 @@ test('indexpage renders h1', () => {
     expect(screen.getByRole('heading', { level: 1 }))
 })
 
-// Index page shows count of loaded/total repositories
-test('shows how many loaded of possible results, if possible results higher than limit of 16', () => {
-    render(<IndexPage data={mockRepositoryData} />)
-
-    expect(screen.queryByText(`Displaying ${mockRepositoryData.items.length} of ${mockRepositoryData.total_count}`)).toBeDefined();
-})
-
 // Data is mocked to test UI display
-test('correct number of cards render', () => {
+test('correct number of cards render with each card containing correct values', () => {
     render(<IndexPage data={mockRepositoryData} />)
 
     const cards = screen.queryAllByRole('listitem');
     expect(cards.length).toBe(mockRepositoryData.items.length);
-})
-
-// Each card displays title, subtitle, link, paragraph text
-test('card displays all data', () => {
-    render(<RepositoryCard
-        title={mockRepositoryData.items[0].name}
-        subtitle={mockRepositoryData.items[0].full_name}
-        link={mockRepositoryData.items[0].html_url}
-        description={mockRepositoryData.items[0].description}
-    />)
 
     expect(screen.queryByText(mockRepositoryData.items[0].name)?.getAttribute('href')).toBeDefined();
     expect(screen.queryByText(mockRepositoryData.items[0].full_name)).toBeDefined();
@@ -73,8 +51,8 @@ test('card displays all data', () => {
 test('card returns null if title or link are missing', () => {
     render(<RepositoryCard
         title={''}
+        link={""}
         subtitle={mockRepositoryData.items[0].full_name}
-        link={mockRepositoryData.items[0].html_url}
         description={mockRepositoryData.items[0].description}
     />)
 

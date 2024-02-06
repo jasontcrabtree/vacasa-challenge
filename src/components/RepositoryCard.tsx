@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Header } from "./Header";
+import styles from '@/styles/repository-card.module.css'
 
 const RepositoryCard = ({ title, subtitle, link, description }:
     {
@@ -14,13 +15,13 @@ const RepositoryCard = ({ title, subtitle, link, description }:
     }
 
     return (
-        <li>
-            <Header level="h3" classes="">
-                <Link href={link}>
+        <li className={styles.card}>
+            <Header level="h3">
+                <Link className="text-large font-semibold" href={link}>
                     {title}
                 </Link>
             </Header>
-            {subtitle && (<p>{subtitle}</p>)}
+            {subtitle && (<p className="font-medium">{subtitle}</p>)}
             {description && (<p>{description}</p>)}
         </li>
     )

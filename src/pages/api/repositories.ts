@@ -13,8 +13,8 @@ export default async function handler(
 ) {
   const searchTerm = req.query.search;
 
-  // Default to fetching 16
-  const url = `https://api.github.com/search/repositories?q=org:${searchTerm}&sort=stars&order=desc&per_page=16`;
+  // Default to fetching 12
+  const url = `https://api.github.com/search/repositories?q=org:${searchTerm}&sort=stars&order=desc&per_page=12`;
 
   const options = {
     method: 'GET',
@@ -26,9 +26,13 @@ export default async function handler(
 
   const data = await fetch(url, options);
 
+  console.log('data', data);
+
   if (data.ok) {
     const json = await data.json();
     res.status(200).json(json);
+  } else if (data.status === 422) {
+    res.status(422).json({ message: 'No organisation results found' });
   } else {
     res.status(500).json({ message: 'Internal Server Error' });
   }
